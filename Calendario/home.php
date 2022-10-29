@@ -57,8 +57,94 @@ if (isset($_SESSION['usuario'])) {
         $("#FormularioEventos").modal('show');
       },
           
-        });
+       eventClick: function(info) {
+      
+        $('#BotonAgregar').hide();
+        $('#BotonModificar').show();
+        $('#BotonBorrar').show();
+
+       
+        $('#Id').val(info.event.id);
+        $('#Titulo').val(info.event.title);
+        $('#Descripcion').val(info.event.extendedProps.description);
+        $('#FechaInicio').val(moment(info.event.start).format("YYYY-MM-DD"));
+        $('#FechaFin').val(moment(info.event.end).format("YYYY-MM-DD"));
+        $('#HoraInicio').val(moment(info.event.start).format("HH:mm"));
+        $('#HoraFin').val(moment(info.event.end).format("HH:mm"));
+        $('#ColorFondo').val(info.event.backgroundColor);
+        $('#ColorTexto').val(info.event.textColor);
+
+
+        $("#FormularioEventos").modal('show');
+
+      }
+
+
+
+    });
+   
         calendar.render();
+   //eventos de botones
+    $('#BotonAgregar').click(function() {
+      let registro = recuperarDatosFormulario();
+      agregarRegistro(registro);
+      $('#FormularioEventos').modal('hide');
+    });
+
+    $('#BotonModificar').click(function() {
+      let registro = recuperarDatosFormulario();
+      modificarRegistro(registro);
+      $('#FormularioEventos').modal('hide');
+    });
+
+    $('#BotonBorrar').click(function() {
+      let registro = recuperarDatosFormulario();
+      borrarRegistro(registro);
+      $('#FormularioEventos').modal('hide');
+    });
+
+    //funciones que interactuan con ajax
+    function agregarRegistro(registro) {
+      $.ajax({
+        type: 'POST',
+        url: 'api.php?Accion=crear',
+        data: registro,
+        success: function(msg) {
+          calendar.refetchEvents();
+        },
+        error: function(error) {
+          alert("Hubo un error al agregar el evento");
+        }
+      })
+    }
+
+    function modificarRegistro(registro) {
+      $.ajax({
+        type: 'POST',
+        url: 'api.php?Accion=modificar',
+        data: registro,
+        success: function(msg) {
+          calendar.refetchEvents();
+        },
+        error: function(error) {
+          alert("Hubo un error al modificar el evento");
+        }
+      });
+    }
+
+    function borrarRegistro(registro) {
+      $.ajax({
+        type: 'POST',
+        url: 'api.php?Accion=borrar',
+        data: registro,
+        success: function(msg) {
+          calendar.refetchEvents();
+        },
+        error: function(error) {
+          alert("Hubo un error al borrar el evento");
+        }
+      });
+    }
    
    // funciones que interactuan con el formulario
       function limpiarFormulario() {
