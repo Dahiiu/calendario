@@ -305,18 +305,14 @@ if (isset($_SESSION['usuario'])) {
 //muestra de los datos de la bases de datos
 try {
   $mbd = new PDO('mysql:host=localhost;dbname=calendario', "root", "");
-  $sth = $mbd->query('SELECT * FROM eventos');
+  $sth = $mbd->query('SELECT count(*) FROM `eventos`');
   foreach($sth as $fila) {
     echo $fila ["id"];
-    echo "<br>";
-    echo $fila ["inicio"]; 
     echo "<br>";
   } 
 } catch (PDOException $e) {
   print "¡Error!: " . $e->getMessage() . "<br/>";
   die();
 }
-
 ?>
-
 </html>
