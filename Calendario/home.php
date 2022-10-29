@@ -199,7 +199,7 @@ if (isset($_SESSION['usuario'])) {
         //muestra de los datos de la bases de datos
         try {
         $mbd = new PDO('mysql:host=localhost;dbname=calendario', "root", "");
-        $sth = $mbd->query('SELECT count(*) FROM `eventos`');
+        $sth = $mbd->query('SELECT * FROM eventos');
         foreach($sth as $fila) {
         echo $fila ["id"];
         echo "<br>";
@@ -303,18 +303,3 @@ if (isset($_SESSION['usuario'])) {
   </div>
 </body>
   </html>
-
-
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <title> </title>
-        <link rel="stylesheet" href="">
-    </head>
-    <datos1 class="container">
-      <div class="jumbotron text-center">
-      <h1>Datos</h1>
-
-</div> 
-</html>
