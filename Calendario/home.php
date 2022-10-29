@@ -49,3 +49,5 @@ if (isset($_SESSION['usuario'])) {
         <p><a href="logout.php">Cerrar sesión</a></p>
       </div> 
 </div>
+
+<div id='calendar' style="border:1px solid #000; padding:2px"></div>
