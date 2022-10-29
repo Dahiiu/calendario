@@ -192,7 +192,23 @@ if (isset($_SESSION['usuario'])) {
       <div class="text-center">
         <h3><?php echo $nomApe;?></h3>
         <p><a href="logout.php">Cerrar sesión</a></p>
-      </div> 
+      </div>
+        <div class="text-center">
+        <p>DATOS ID<p>
+        <?php
+        //muestra de los datos de la bases de datos
+        try {
+        $mbd = new PDO('mysql:host=localhost;dbname=calendario', "root", "");
+        $sth = $mbd->query('SELECT count(*) FROM `eventos`');
+        foreach($sth as $fila) {
+        echo $fila ["id"];
+        echo "<br>";
+        } 
+        } catch (PDOException $e) {
+        print "¡Error!: " . $e->getMessage() . "<br/>";
+        die();
+        }
+        ?>
 </div>
 
 
@@ -301,18 +317,4 @@ if (isset($_SESSION['usuario'])) {
       <h1>Datos</h1>
 
 </div> 
-        <?php
-//muestra de los datos de la bases de datos
-try {
-  $mbd = new PDO('mysql:host=localhost;dbname=calendario', "root", "");
-  $sth = $mbd->query('SELECT count(*) FROM `eventos`');
-  foreach($sth as $fila) {
-    echo $fila ["id"];
-    echo "<br>";
-  } 
-} catch (PDOException $e) {
-  print "¡Error!: " . $e->getMessage() . "<br/>";
-  die();
-}
-?>
 </html>
