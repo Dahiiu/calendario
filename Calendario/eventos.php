@@ -65,4 +65,9 @@ class Eventos
         $this->conexion->query($sql);
     }
     
+        public function MostrarTotalEventos($eventos)
+{
+    $sum= $this->conexion->query("SELECT SUM(id) FROM eventos");
+    return $result->fetch_assoc();
+}
 }
