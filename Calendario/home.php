@@ -34,9 +34,45 @@ if (isset($_SESSION['usuario'])) {
  document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+          initialView: 'dayGridMonth',
+          locale:'es',
+          events: 'api.php?Accion=listar',
+          
+        dateClick: function(info) {
+        limpiarFormulario();
+        $('#BotonAgregar').show();
+        $('#BotonModificar').hide();
+        $('#BotonBorrar').hide();
+
+        if (info.allDay) {
+          $('#FechaInicio').val(info.dateStr);
+          $('FechaFin').val(info.dateStr);
+        } else {
+          let fechaHora = info.dateStr.split("T");
+          $('#FechaInicio').val(fechaHora[0]);
+          $('#FechaFin').val(fechaHora[0]);
+          $('#HoraInicio').val(fechaHora[1].substring(0, 5));
+        }
+
+        $("#FormularioEventos").modal('show');
+      },
+          
         });
         calendar.render();
+   
+   // funciones que interactuan con el formulario
+      function limpiarFormulario() {
+      $('#Id').val('');
+      $('#Titulo').val('');
+      $('#Descripcion').val('');
+      $('#FechaInicio').val('');
+      $('#FechaFin').val('');
+      $('#HoraInicio').val('');
+      $('#HoraFin').val('');
+      $('#ColorFondo').val('#3788D8');
+      $('#ColorTexto').val('#ffffff');
+
+    }
       });
       </script>
 
