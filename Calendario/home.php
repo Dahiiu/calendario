@@ -210,7 +210,7 @@ try {
 
         </div>
 
-        <form action="./api.php" method="POST">
+        <form>
 
 
           <div class="modal=body">
