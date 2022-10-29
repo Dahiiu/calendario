@@ -1,6 +1,5 @@
 <?php
 require 'clases/Usuario.php';
-
 session_start();
 if (isset($_SESSION['usuario'])) {
   $usuario = unserialize($_SESSION['usuario']);
@@ -9,11 +8,16 @@ if (isset($_SESSION['usuario'])) {
   header('Location: index.php');
 }
 
+
+
 ?>
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
+  
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Calendario</title>
@@ -28,17 +32,17 @@ if (isset($_SESSION['usuario'])) {
   <script src='Assets/js/moment-with-locales.js'></script>
   <script src='Assets/js/fullcalendar.main.min.js'></script>
 
+
 </head>
+
+
 <script>
- // creacion del calendario //
- document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          locale:'es',
-          events: 'api.php?Accion=listar',
-          
-        dateClick: function(info) {
+  document.addEventListener('DOMContentLoaded', async function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      events: 'api.php?Accion=listar',
+      dateClick: function(info) {
         limpiarFormulario();
         $('#BotonAgregar').show();
         $('#BotonModificar').hide();
@@ -56,8 +60,7 @@ if (isset($_SESSION['usuario'])) {
 
         $("#FormularioEventos").modal('show');
       },
-          
-       eventClick: function(info) {
+      eventClick: function(info) {
       
         $('#BotonAgregar').hide();
         $('#BotonModificar').show();
@@ -82,9 +85,12 @@ if (isset($_SESSION['usuario'])) {
 
 
     });
-   
-        calendar.render();
-   //eventos de botones
+
+
+
+    calendar.render();
+
+    //eventos de botones
     $('#BotonAgregar').click(function() {
       let registro = recuperarDatosFormulario();
       agregarRegistro(registro);
@@ -103,7 +109,6 @@ if (isset($_SESSION['usuario'])) {
       $('#FormularioEventos').modal('hide');
     });
 
-    //funciones que interactuan con ajax
     function agregarRegistro(registro) {
       $.ajax({
         type: 'POST',
@@ -145,9 +150,9 @@ if (isset($_SESSION['usuario'])) {
         }
       });
     }
-   
-   // funciones que interactuan con el formulario
-      function limpiarFormulario() {
+
+    // funciones que interactuan con el formulario
+    function limpiarFormulario() {
       $('#Id').val('');
       $('#Titulo').val('');
       $('#Descripcion').val('');
@@ -159,9 +164,27 @@ if (isset($_SESSION['usuario'])) {
       $('#ColorTexto').val('#ffffff');
 
     }
-      });
-      </script>
 
+    function recuperarDatosFormulario() {
+      let registro = {
+        id: $("#Id").val(),
+        titulo: $('#Titulo').val(),
+        descripcion: $('#Descripcion').val(),
+        inicio: $('#FechaInicio').val() + ' ' + $('#HoraInicio').val(),
+        fin: $('#FechaFin').val() + ' ' + $('#HoraFin').val(),
+        colorfondo: $('#ColorFondo').val(),
+        colortexto: $('#ColorTexto').val()
+      }
+      return registro;
+    }
+
+  });
+</script>
+
+
+<!-- creacion del calendario -->
+
+<body>
 <div class="container">
       <div class="jumbotron text-center">
       <h1>Calendario</h1>
@@ -172,29 +195,8 @@ if (isset($_SESSION['usuario'])) {
       </div> 
 </div>
 
-<datos1 class="container">
-      <div class="jumbotron text-center">
-      <h1>Datos</h1>
-      </div>    
-        <?php
-//muestra de los datos de la bases de datos
-try {
-  $mbd = new PDO('mysql:host=localhost;dbname=calendario', "root", "");
-  $sth = $mbd->query('SELECT COUNT(*) FROM eventos');
-  foreach($sth as $fila) {
-    echo $fila ["titulo"];
-    echo $fila ["inicio"];
-    echo "<br>";
-  } 
-} catch (PDOException $e) {
-  print "¡Error!: " . $e->getMessage() . "<br/>";
-  die();
-}
 
-?>
-</datos1>
-
-<div id='calendar' style="border:1px solid #000; padding:2px"></div>
+  <div id='calendar' style="border:1px solid #000; padding:2px"></div>
 
 
 
@@ -210,7 +212,7 @@ try {
 
         </div>
 
-        <form>
+        <form action="./api.php" method="POST">
 
 
           <div class="modal=body">
@@ -284,4 +286,37 @@ try {
     </div>
   </div>
 </body>
+  </html>
+
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title> </title>
+        <link rel="stylesheet" href="">
+    </head>
+    <datos1 class="container">
+      <div class="jumbotron text-center">
+      <h1>Datos</h1>
+
+</div> 
+        <?php
+//muestra de los datos de la bases de datos
+try {
+  $mbd = new PDO('mysql:host=localhost;dbname=calendario', "root", "");
+  $sth = $mbd->query('SELECT * FROM eventos');
+  foreach($sth as $fila) {
+    echo $fila ["id"];
+    echo "<br>";
+    echo $fila ["inicio"]; 
+    echo "<br>";
+  } 
+} catch (PDOException $e) {
+  print "¡Error!: " . $e->getMessage() . "<br/>";
+  die();
+}
+
+?>
+
 </html>
