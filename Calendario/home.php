@@ -192,6 +192,7 @@ try {
 }
 
 ?>
+</datos1>
 
 <div id='calendar' style="border:1px solid #000; padding:2px"></div>
 
