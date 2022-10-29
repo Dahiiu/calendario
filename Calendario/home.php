@@ -172,6 +172,26 @@ if (isset($_SESSION['usuario'])) {
       </div> 
 </div>
 
+<datos1 class="container">
+      <div class="jumbotron text-center">
+      <h1>Datos</h1>
+      </div>    
+        <?php
+//muestra de los datos de la bases de datos
+try {
+  $mbd = new PDO('mysql:host=localhost;dbname=calendario', "root", "");
+  $sth = $mbd->query('SELECT * FROM eventos');
+  foreach($sth as $fila) {
+    echo $fila ["titulo"];
+    echo $fila ["inicio"];
+    echo "<br>";
+  } 
+} catch (PDOException $e) {
+  print "¡Error!: " . $e->getMessage() . "<br/>";
+  die();
+}
+
+
 <div id='calendar' style="border:1px solid #000; padding:2px"></div>
 
 
