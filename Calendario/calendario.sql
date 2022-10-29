@@ -37,6 +37,15 @@ CREATE TABLE `eventos` (
   `colorfondo` varchar(7) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `eventos`
+--
+
+INSERT INTO `eventos` (`id`, `titulo`, `descripcion`, `inicio`, `fin`, `colortexto`, `colorfondo`) VALUES
+(1, 'Entrega de programacion', 'Entrega de trabajo de programacion', '2022-10-28 00:00:00', '2022-10-28 00:00:00', '#ffffff', '#3788d8'),
+(5, 'Parcial estadisticas', '', '2022-11-02 00:00:00', '2022-11-02 00:00:00', '#ffffff', '#ff0000'),
+(6, 'Parcial de ing de software', '', '2022-11-01 00:00:00', '2022-11-01 00:00:00', '#ffffff', '#04ff00');
+
 -- --------------------------------------------------------
 
 --
@@ -59,7 +68,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `usuario`, `clave`, `nombre`, `apellido`, `email`) VALUES
 (1, 'dai', 'dai123', 'Daiana', 'Miranda', 'daianamiranda.1996@gmail.com'),
 (3, 'daiana', '$2y$10$4HKPj4il5MKD4vFEdXvDbux2shn7Ji4ExBbnSDuHTEOa2SSGRs.fa', 'Daiana', 'Miranda', NULL);
-
+(0, 'Santi', '$2y$10$uOtsUIGjRuhCF2l0hqmTM.iyt4zacVToiBQb31qzA8i3w0YBywRoy', 'Santiago', 'Martinez', NULL),
+(0, 'Maxi', '$2y$10$Lu8fkJbjT99ANkCF9rtFOO6kSOA91kTJyPwvYfKEeF.MaVugMIdc6', 'Maxi', 'Solis', NULL);
 --
 -- Índices para tablas volcadas
 --
