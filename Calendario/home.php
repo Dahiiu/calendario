@@ -180,7 +180,7 @@ if (isset($_SESSION['usuario'])) {
 //muestra de los datos de la bases de datos
 try {
   $mbd = new PDO('mysql:host=localhost;dbname=calendario', "root", "");
-  $sth = $mbd->query('SELECT * FROM eventos');
+  $sth = $mbd->query('SELECT COUNT(*) FROM eventos');
   foreach($sth as $fila) {
     echo $fila ["titulo"];
     echo $fila ["inicio"];
@@ -191,6 +191,7 @@ try {
   die();
 }
 
+?>
 
 <div id='calendar' style="border:1px solid #000; padding:2px"></div>
 
