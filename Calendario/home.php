@@ -197,18 +197,18 @@ if (isset($_SESSION['usuario'])) {
         <p>DATOS ID<p>
         <?php
         //muestra de los datos de la bases de datos
-        try {
-        $mbd = new PDO('mysql:host=localhost;dbname=calendario', "root", "");
-        $sth = $mbd->query('SELECT * FROM eventos');
-        foreach($sth as $fila) {
-        echo $fila ["id"];
-        echo "<br>";
-        } 
-        } catch (PDOException $e) {
-        print "¡Error!: " . $e->getMessage() . "<br/>";
-        die();
-        }
-        ?>
+     try {
+     $mbd = new PDO('mysql:host=localhost;dbname=calendario', "root", "");
+     $sth = $mbd->query('SELECT sum(id) FROM `eventos`');
+     foreach($sth as $fila) {
+      echo $fila [$id] ;
+      echo "<br>";
+    } 
+  } catch (PDOException $e) {
+    print "¡Error!: " . $e->getMessage() . "<br/>";
+    die();
+}
+?>
 </div>
 
 
