@@ -51,3 +51,93 @@ if (isset($_SESSION['usuario'])) {
 </div>
 
 <div id='calendar' style="border:1px solid #000; padding:2px"></div>
+
+
+
+  <!-- formulario de eventos -->
+  <div class="modal fade" id="FormularioEventos" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+
+          <button type="button" class="close" data-bs-dismiss="modal" aira-label="Close">
+            <span aria-hidden="true">x</span>
+          </button>
+
+        </div>
+
+        <form action="./api.php" method="POST">
+
+
+          <div class="modal=body">
+            <input type="hidden" name="Accion" value="crear">
+            <input type="hidden" id="Id" name="Id" value="">
+
+
+            <div class="form-row">
+              <div class="form-group col-12">
+                <label for="">Titulo del Evento:</label>
+                <input type="text" id="Titulo" class="form-control" placeholder="">
+              </div>
+            </div>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="">Fecha de inicio:</label>
+                <div class="input-group" data-autoclose="true">
+                  <input type="date" id="FechaInicio" class="form-control" value="">
+                </div>
+              </div>
+              <div class="form-group col-md-6" id="TituloHoraInicio">
+                <label for="">Hora de inicio:</label>
+                <div class="input-group " data-autoclose="true">
+                  <input type="time" id="HoraInicio" class="form-control" autocomplete="off">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="">Fecha de fin:</label>
+                <div class="input-group" data-autoclose="true">
+                  <input type="date" id="FechaFin" class="form-control" value="">
+                </div>
+              </div>
+              <div class="form-group col-md-6" id="TituloHoraFin">
+                <label for="">Hora de fin:</label>
+                <div class="input-group " data-autoclose="true">
+                  <input type="time" id="HoraFin" class="form-control" autocomplete="off">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label for="">Descripcion:</label>
+              <textarea id="Descripcion" class="form-control" rows"3"></textarea>
+            </div>
+            <div class="form-row">
+              <label for="">Color de fondo:</label>
+              <input type="color" value="#3788D8" id="ColorFondo" class="form-control" style="height:36px;">
+            </div>
+            <div class="form-row">
+              <label for="">Color de Texto:</label>
+              <input type="color" value="#ffffff" id="ColorTexto" class="form-control" style="height:36px;">
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" id="BotonAgregar" class="btn btn-success">Agregar</button>
+            <button type="button" id="BotonModificar" class="btn btn-success">Modificar</button>
+            <button type="button" id="BotonBorrar" class="btn btn-success">Borrar</button>
+            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
